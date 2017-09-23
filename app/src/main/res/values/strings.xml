@@ -1,0 +1,6 @@
+<resources>
+    <string name="app_name">Hourglass</string>
+    <string name="action_settings">Settings</string>
+    <string id="1" name="up_arrow">Increase</string>
+    <string id="2" name="down_arrow">Increase</string>
+</resources>
