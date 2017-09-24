@@ -53,6 +53,15 @@
         app:layout_anchorGravity="center_vertical|center_horizontal"
         app:srcCompat="@android:drawable/button_onoff_indicator_off" />
 
+    <Button
+        android:id="@+id/NewCategory"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|right"
+        android:text="New Category"
+        app:layout_anchor="@+id/gridLayout2"
+        app:layout_anchorGravity="top|left" />
+
     <!--
 
     <android.support.design.widget.FloatingActionButton

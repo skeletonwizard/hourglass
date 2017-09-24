@@ -12,6 +12,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
 import android.widget.TextView;
 
 import junit.framework.Assert;
@@ -56,8 +57,9 @@ public class Hourglass extends Activity {//extends AppCompatActivity {
     }
 
     private void InitializeListeners() {
-        final FloatingActionButton startStopButton = (FloatingActionButton) findViewById(R.id.StartStopButton);
-        final FloatingActionButton upDownButton = (FloatingActionButton) findViewById(R.id.UpDownButton);
+        final FloatingActionButton startStopButton = findViewById(R.id.StartStopButton);
+        final FloatingActionButton upDownButton = findViewById(R.id.UpDownButton);
+        final Button newCategoryButton = findViewById(R.id.NewCategory);
 
         try {
             startStopButton.setOnClickListener(new View.OnClickListener() {
@@ -66,14 +68,17 @@ public class Hourglass extends Activity {//extends AppCompatActivity {
                     try {
                         if (_stopwatch.isRunning()) {
                             startStopButton.setImageResource(android.R.drawable.button_onoff_indicator_off);
-                            //grey out & disable upDownButton
-                            upDownButton.show();
 
+                            upDownButton.show();
+                            upDownButton.setEnabled(true);
 
                             StopHourglass();
                         } else {
                             startStopButton.setImageResource(android.R.drawable.button_onoff_indicator_on);
+
                             upDownButton.hide();
+                            upDownButton.setEnabled(false);
+
                             StartHourglass();
                         }
 
@@ -84,6 +89,25 @@ public class Hourglass extends Activity {//extends AppCompatActivity {
             });
 
             upDownButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    try {
+                        if (!_stopwatch.isRunning()) {
+                            if (_isPositive) {
+                                upDownButton.setImageResource(android.R.drawable.arrow_down_float);
+                                _isPositive = false;
+                            } else {
+                                upDownButton.setImageResource(android.R.drawable.arrow_up_float);
+                                _isPositive = true;
+                            }
+                        }
+                    } catch (Exception ex) {
+                        System.out.print(ex.getMessage());
+                    }
+                }
+            });
+
+            newCategoryButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     try {
