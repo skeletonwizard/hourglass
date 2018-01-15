@@ -1,6 +1,8 @@
 package rezblot.hourglass;
 
 import android.app.Activity;
+import android.app.Dialog;
+import android.arch.persistence.room.Room;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
@@ -34,6 +36,8 @@ public class Hourglass extends Activity {//extends AppCompatActivity {
 
     private boolean _isPositive = true;
 
+    private HourglassDatabase _db;
+
     @Override
     public void onCreate(Bundle savedInstanceState, PersistableBundle savedPersistentState) {
         super.onCreate(savedInstanceState, savedPersistentState);
@@ -54,6 +58,23 @@ public class Hourglass extends Activity {//extends AppCompatActivity {
 
 
         InitializeListeners();
+
+        InitializeDatabase();
+
+    }
+
+    protected HourglassDatabase GetDatabase()
+    {
+        return this._db != null
+            ? this._db
+            : GetDatabase();
+    }
+
+    private void InitializeDatabase() {
+
+
+        HourglassDatabase db = Room.databaseBuilder(getApplicationContext(),
+                HourglassDatabase.class, "hourglass-database").build();
     }
 
     private void InitializeListeners() {
@@ -129,6 +150,32 @@ public class Hourglass extends Activity {//extends AppCompatActivity {
         } catch (Exception ex) {
             System.out.print(ex.getMessage());
         }
+    }
+
+    public void CreateCategory()
+    {
+        final Dialog commentDialog = new Dialog(this);
+        commentDialog.setContentView(R.layout.create_category);
+        Button okBtn = commentDialog.findViewById(R.id.ok);
+        okBtn.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+
+                //Create Category
+
+                commentDialog.dismiss();
+            }
+        });
+        Button cancelBtn = commentDialog.findViewById(R.id.cancel);
+        cancelBtn.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+
+                commentDialog.dismiss();
+            }
+        });
     }
 
     ////When does this call occur?
